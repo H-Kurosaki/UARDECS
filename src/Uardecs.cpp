@@ -221,9 +221,9 @@ void UECScheckUpDate(UECSTEMPCCM* _tempCCM, unsigned long _time,int startid){
       if(U_ccmList[i].ccmLevel == NONE || U_ccmList[i].sender == true){continue;}
       
       
-          if(!((_tempCCM->attribute[AT_ROOM] == 0 || _tempCCM->attribute[AT_ROOM] == U_ccmList[i].baseAttribute[AT_ROOM]) &&
-             (_tempCCM->attribute[AT_REGI] == 0 || _tempCCM->attribute[AT_REGI] == U_ccmList[i].baseAttribute[AT_REGI]) &&
-             (_tempCCM->attribute[AT_ORDE] == 0 || _tempCCM->attribute[AT_ORDE] == U_ccmList[i].baseAttribute[AT_ORDE]))){continue;}
+          if(!((_tempCCM->attribute[AT_ROOM] == 0 || U_ccmList[i].baseAttribute[AT_ROOM]==0 || _tempCCM->attribute[AT_ROOM] == U_ccmList[i].baseAttribute[AT_ROOM]) &&
+               (_tempCCM->attribute[AT_REGI] == 0 || U_ccmList[i].baseAttribute[AT_REGI]==0 || _tempCCM->attribute[AT_REGI] == U_ccmList[i].baseAttribute[AT_REGI]) &&
+               (_tempCCM->attribute[AT_ORDE] == 0 || U_ccmList[i].baseAttribute[AT_ORDE]==0 || _tempCCM->attribute[AT_ORDE] == U_ccmList[i].baseAttribute[AT_ORDE]))){continue;}
 
         //type 
         strcpy_P(UECStempStr20, U_ccmList[i].type);
@@ -262,13 +262,13 @@ void UECScheckUpDate(UECSTEMPCCM* _tempCCM, unsigned long _time,int startid){
                         if(address_t<=address_b)
                         {up = true;} 
                       }
-                      else if (_tempCCM->attribute[AT_ORDE] == U_ccmList[i].baseAttribute[AT_ORDE])
+                      else if (_tempCCM->attribute[AT_ORDE] == U_ccmList[i].baseAttribute[AT_ORDE] || U_ccmList[i].baseAttribute[AT_ORDE]==0)
                       {up = true;}                         
                     }
-                    else if (_tempCCM->attribute[AT_REGI] == U_ccmList[i].baseAttribute[AT_REGI])
+                    else if (_tempCCM->attribute[AT_REGI] == U_ccmList[i].baseAttribute[AT_REGI]|| U_ccmList[i].baseAttribute[AT_REGI]==0)
                     {up = true;}                       
                   }
-                  else if (_tempCCM->attribute[AT_ROOM] == U_ccmList[i].baseAttribute[AT_ROOM])
+                  else if (_tempCCM->attribute[AT_ROOM] == U_ccmList[i].baseAttribute[AT_ROOM]|| U_ccmList[i].baseAttribute[AT_ROOM]==0)
                   {up = true;} 
                 }
 
@@ -432,11 +432,11 @@ for(int id=0;id<U_MAX_CCM;id++)
       {
         U_ccmList[id].flagStimeRfirst = true;
        }
-       else if((UECSsyscounter60s % 10 == 0) && (U_ccmList[id].ccmLevel == A_10S_0 || U_ccmList[id].ccmLevel == A_10S_1))
+       else if((UECSsyscounter60s % 10 == id % 10) && (U_ccmList[id].ccmLevel == A_10S_0 || U_ccmList[id].ccmLevel == A_10S_1))
        {
          U_ccmList[id].flagStimeRfirst = true;
        }
-       else if(UECSsyscounter60s == 0 && (U_ccmList[id].ccmLevel == A_1M_0 || U_ccmList[id].ccmLevel == A_1M_1 || U_ccmList[id].ccmLevel == S_1M_0))
+       else if(UECSsyscounter60s == id % 10 && (U_ccmList[id].ccmLevel == A_1M_0 || U_ccmList[id].ccmLevel == A_1M_1 || U_ccmList[id].ccmLevel == S_1M_0))
        {
          U_ccmList[id].flagStimeRfirst = true;
        }

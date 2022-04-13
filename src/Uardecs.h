@@ -3,7 +3,7 @@
 
 
   Ken-ichiro Yasuba 2013.
-  updated by Hideto Kurosaki 2016.12.
+  updated by Hideto Kurosaki 2022.4.
 
 */
 
