@@ -1596,12 +1596,12 @@ return true;
 bool UECSGetIPAddress(char *targetBuffer,unsigned char *ip,int *lastPos)
 {
 int _targetBuffersize=strlen(targetBuffer);
-int i;
+int i=0;
 int progPos=0;
 (*lastPos)=0;
 
 //find first number
-for((*lastPos);i<_targetBuffersize;(*lastPos)++)
+for(; (*lastPos) < _targetBuffersize; (*lastPos)++) // ← 条件を修正
 	{
 	if(targetBuffer[(*lastPos)]>='0' && targetBuffer[(*lastPos)]<='9')
 		{
